@@ -23,6 +23,7 @@ class DAVISTestDataset_221128_TransColorization_batch:
                 path.join(self.mask_dir, video),
                 size=self.size,
                 size_dir=path.join(self.size_dir, video),
+                use_all_mask=True,
             )
 
     def __len__(self):
