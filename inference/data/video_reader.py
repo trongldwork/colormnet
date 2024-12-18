@@ -76,19 +76,21 @@ class VideoReader_221128_TransColorization(Dataset):
         print(len(os.listdir(self.mask_dir)))
         gt_path = path.join(self.mask_dir, sorted(os.listdir(self.mask_dir))[idx]) if idx < len(os.listdir(self.mask_dir)) else None 
         print(gt_path)
+        
         img = self.im_transform(img)
         img_l = img[:1,:,:]
         img_lll = img_l.repeat(3,1,1)
 
         load_mask = self.use_all_mask or (gt_path == self.first_gt_path)
-        if load_mask and path.exists(gt_path):
-            mask = Image.open(gt_path).convert('RGB')
-            mask = self.im_transform(mask)
-
-            # keep L channel of reference image in case First frame is not exemplar
-            # mask_ab = mask[1:3,:,:]
-            # data['mask'] = mask_ab
-            data['mask'] = mask
+        if gt_path != None:
+            if load_mask and path.exists(gt_path):
+                mask = Image.open(gt_path).convert('RGB')
+                mask = self.im_transform(mask)
+    
+                # keep L channel of reference image in case First frame is not exemplar
+                # mask_ab = mask[1:3,:,:]
+                # data['mask'] = mask_ab
+                data['mask'] = mask
 
         info['shape'] = shape
         info['need_resize'] = not (self.size < 0)
