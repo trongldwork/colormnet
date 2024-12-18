@@ -72,9 +72,10 @@ class VideoReader_221128_TransColorization(Dataset):
             size_path = path.join(self.size_dir, frame)
             size_im = Image.open(size_path).convert('RGB')
             shape = np.array(size_im).shape[:2]
-
+        print(idx)
+        print(len(os.listdir(self.mask_dir)))
         gt_path = path.join(self.mask_dir, sorted(os.listdir(self.mask_dir))[idx]) if idx < len(os.listdir(self.mask_dir)) else None 
-
+        print(gt_path)
         img = self.im_transform(img)
         img_l = img[:1,:,:]
         img_lll = img_l.repeat(3,1,1)
