@@ -67,6 +67,7 @@ class ColorMNetTrainer:
         self.best_it = 0
 
     def do_val(self, it=0, val_dataset=None):
+        return 1
         self.model.module.eval()
         self.val()
 
@@ -340,12 +341,8 @@ class ColorMNetTrainer:
 
         # validation
         if it % self.save_network_interval == 0: # log_text_interval
-            current_psnr = self.do_val(it, val_dataset=val_dataset)
-
-            if current_psnr >= self.best_psnr:
-                self.best_psnr = current_psnr
-                self.best_it = it
-                self.save_best_network(it)
+            self.best_it = it
+            self.save_best_network(it)
 
 
     def save_network(self, it):
