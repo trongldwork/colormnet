@@ -215,7 +215,8 @@ for si, stage in enumerate(stages_to_perform):
             # Crucial for randomness! 
             train_sampler.set_epoch(current_epoch)
             current_epoch += 1
-            print(f'Current epoch: {current_epoch}')
+            if (current_epoch % 500 == 0):
+                print(f'Current epoch: {current_epoch}')
 
             # Train loop
             model.train()
